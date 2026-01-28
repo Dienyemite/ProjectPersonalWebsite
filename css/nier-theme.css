@@ -1,0 +1,1615 @@
+@charset "utf-8";
+
+/*
+ * NieR:Automata UI Theme
+ * Inspired by the game's distinctive menu interface
+ * 
+ * Color Palette:
+ * - Background: Warm beige/cream (#DAD4BB, #E8E0C8)
+ * - Text: Dark brown/charcoal (#454138, #3D3929)
+ * - Accent: Sepia tones (#C4B998, #A69F88)
+ * - Borders: Dark lines (#57534A)
+ * - Highlight: Warm tan (#B8A888)
+ */
+
+/* ============================================= */
+/* NieR:Automata Theme - Base Variables & Reset */
+/* ============================================= */
+
+:root {
+    /* NieR Color Palette */
+    --nier-bg-primary: #DAD4BB;
+    --nier-bg-secondary: #E8E0C8;
+    --nier-bg-dark: #CFC9B0;
+    --nier-bg-panel: rgba(212, 204, 180, 0.95);
+    
+    --nier-text-primary: #454138;
+    --nier-text-secondary: #5C574A;
+    --nier-text-muted: #7A756A;
+    --nier-text-light: #8A8578;
+    
+    --nier-border-primary: #57534A;
+    --nier-border-secondary: #9A9486;
+    --nier-border-light: rgba(87, 83, 74, 0.3);
+    
+    --nier-accent: #B8A888;
+    --nier-accent-hover: #A69F88;
+    --nier-highlight: #C4B998;
+    
+    --nier-selection-bg: rgba(69, 65, 56, 0.15);
+    --nier-glow: rgba(180, 168, 136, 0.4);
+    
+    /* Typography */
+    --nier-font-primary: 'Rajdhani', 'Segoe UI', sans-serif;
+    --nier-font-secondary: 'Share Tech Mono', 'Courier New', monospace;
+    --nier-font-display: 'Orbitron', 'Rajdhani', sans-serif;
+    
+    /* Spacing */
+    --nier-spacing-xs: 4px;
+    --nier-spacing-sm: 8px;
+    --nier-spacing-md: 16px;
+    --nier-spacing-lg: 24px;
+    --nier-spacing-xl: 40px;
+    
+    /* Animation */
+    --nier-transition-fast: 0.15s ease;
+    --nier-transition-normal: 0.3s ease;
+    --nier-transition-slow: 0.5s ease;
+}
+
+/* ============================================= */
+/* Global Overrides */
+/* ============================================= */
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--nier-border-primary) var(--nier-bg-primary);
+}
+
+body.dark {
+    background-color: var(--nier-bg-primary) !important;
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+body.dark::-webkit-scrollbar {
+    width: 8px;
+}
+
+body.dark::-webkit-scrollbar-track {
+    background: var(--nier-bg-primary);
+}
+
+body.dark::-webkit-scrollbar-thumb {
+    background-color: var(--nier-border-primary);
+    border-radius: 0;
+    border: 2px solid var(--nier-bg-primary);
+}
+
+/* Typography Overrides */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6 {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+body.dark p {
+    color: var(--nier-text-secondary);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+body.dark a {
+    color: var(--nier-text-primary);
+    text-decoration: none;
+    transition: var(--nier-transition-fast);
+}
+
+body.dark a:hover {
+    color: var(--nier-text-secondary);
+}
+
+/* Selection */
+body.dark ::selection {
+    background: var(--nier-selection-bg);
+    color: var(--nier-text-primary);
+}
+
+/* ============================================= */
+/* Preloader - NieR Style */
+/* ============================================= */
+
+body.dark #preloader {
+    background-color: var(--nier-bg-primary);
+}
+
+body.dark #preloader:before,
+body.dark #preloader:after {
+    background-color: var(--nier-bg-primary) !important;
+}
+
+body.dark .loader_line {
+    width: 2px !important;
+}
+
+body.dark .loader_line:before {
+    background-color: var(--nier-border-primary) !important;
+}
+
+body.dark .loader_line:after {
+    background-color: var(--nier-accent) !important;
+}
+
+/* ============================================= */
+/* NieR Grid Pattern Background */
+/* ============================================= */
+
+body.dark .aali_tm_all_wrap {
+    position: relative;
+    background-color: var(--nier-bg-primary);
+}
+
+body.dark .aali_tm_all_wrap::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(var(--nier-border-light) 1px, transparent 1px),
+        linear-gradient(90deg, var(--nier-border-light) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+/* ============================================= */
+/* Header - NieR Tab Navigation Style */
+/* ============================================= */
+
+body.dark .aali_tm_header {
+    background: transparent;
+    border-bottom: none;
+}
+
+body.dark .aali_tm_header.animate {
+    background-color: var(--nier-bg-panel) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--nier-border-primary);
+    box-shadow: 0 2px 20px rgba(69, 65, 56, 0.1);
+}
+
+body.dark .aali_tm_header .menu ul {
+    display: flex;
+    gap: 0;
+    background: transparent;
+}
+
+body.dark .aali_tm_header .menu ul li {
+    margin: 0;
+    position: relative;
+}
+
+body.dark .aali_tm_header .menu ul li a {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    display: block;
+    position: relative;
+    border: 1px solid transparent;
+    transition: var(--nier-transition-fast);
+    background: transparent;
+}
+
+/* NieR-style tab hover effect */
+body.dark .aali_tm_header .menu ul li a:hover {
+    background: var(--nier-selection-bg);
+    border-color: var(--nier-border-secondary);
+    color: var(--nier-text-primary) !important;
+}
+
+/* Active tab styling */
+body.dark .aali_tm_header .menu ul li.current a {
+    background: var(--nier-bg-dark) !important;
+    border: 1px solid var(--nier-border-primary) !important;
+    color: var(--nier-text-primary) !important;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Tab indicator dot */
+body.dark .aali_tm_header .menu ul li.current a::before {
+    content: '■';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 6px;
+    color: var(--nier-text-primary);
+}
+
+body.dark .aali_tm_header.animate .menu ul li a {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_header.animate .menu ul li.current a {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_header.animate .menu ul li a:hover {
+    color: var(--nier-text-primary) !important;
+}
+
+/* ============================================= */
+/* Mobile Menu - NieR Style */
+/* ============================================= */
+
+body.dark .aali_tm_mobile_menu .mobile_menu_inner {
+    background-color: var(--nier-bg-panel) !important;
+    border-bottom: 1px solid var(--nier-border-primary);
+}
+
+body.dark .aali_tm_mobile_menu .dropdown {
+    background-color: var(--nier-bg-secondary) !important;
+    border-bottom: 1px solid var(--nier-border-primary);
+}
+
+body.dark .aali_tm_mobile_menu .dropdown_inner ul li a {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--nier-border-light);
+    display: block;
+    position: relative;
+}
+
+body.dark .aali_tm_mobile_menu .dropdown_inner ul li a::before {
+    content: '□';
+    margin-right: 12px;
+    font-size: 10px;
+}
+
+body.dark .aali_tm_mobile_menu .dropdown_inner ul li.current a::before {
+    content: '■';
+}
+
+/* Hamburger */
+body.dark .hamburger-inner,
+body.dark .hamburger-inner:before,
+body.dark .hamburger-inner:after {
+    background-color: var(--nier-text-primary) !important;
+}
+
+/* ============================================= */
+/* Hero Section - NieR Style */
+/* ============================================= */
+
+body.dark .aali_tm_hero {
+    background: linear-gradient(135deg, var(--nier-bg-primary) 0%, var(--nier-bg-dark) 100%) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle scan line effect */
+body.dark .aali_tm_hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(69, 65, 56, 0.02) 2px,
+        rgba(69, 65, 56, 0.02) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+body.dark .aali_tm_hero .content {
+    z-index: 2;
+    position: relative;
+}
+
+body.dark .aali_tm_hero .content .hello {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-primary);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    padding-left: 30px;
+}
+
+body.dark .aali_tm_hero .content .hello::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 20px;
+    height: 1px;
+    background: var(--nier-border-primary);
+}
+
+body.dark .aali_tm_hero .content .name {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 120px;
+    position: relative;
+}
+
+/* Decorative bracket */
+body.dark .aali_tm_hero .content .name::before {
+    content: '[';
+    position: absolute;
+    left: -30px;
+    color: var(--nier-border-secondary);
+    font-weight: 300;
+}
+
+body.dark .aali_tm_hero .content .name::after {
+    content: ']';
+    color: var(--nier-border-secondary);
+    font-weight: 300;
+    margin-left: 10px;
+}
+
+/* Animated text */
+body.dark .aali_tm_hero .cd-headline {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-size: 28px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+body.dark .aali_tm_hero .cd-headline b {
+    color: var(--nier-text-primary) !important;
+    font-size: 48px;
+    font-weight: 600;
+}
+
+body.dark .aali_tm_hero .cd-headline .blc {
+    color: var(--nier-text-muted);
+}
+
+/* ============================================= */
+/* NieR-Style Buttons */
+/* ============================================= */
+
+body.dark .aali_tm_button a {
+    background: transparent !important;
+    border: 1px solid var(--nier-border-primary) !important;
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    padding: 16px 40px 16px 24px;
+    border-radius: 0 !important;
+    position: relative;
+    transition: var(--nier-transition-fast);
+}
+
+body.dark .aali_tm_button a::before {
+    content: '>';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    transition: var(--nier-transition-fast);
+}
+
+body.dark .aali_tm_button a:hover {
+    background: var(--nier-text-primary) !important;
+    color: var(--nier-bg-primary) !important;
+}
+
+body.dark .aali_tm_button a:hover::before {
+    right: 14px;
+}
+
+body.dark .aali_tm_button a:hover .svg {
+    color: var(--nier-bg-primary) !important;
+}
+
+body.dark .aali_tm_button a .svg {
+    color: var(--nier-text-primary) !important;
+    transition: var(--nier-transition-fast);
+}
+
+/* Simple button */
+body.dark .aali_tm_hero .simple_button a {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    position: relative;
+    padding-left: 20px;
+}
+
+body.dark .aali_tm_hero .simple_button a::before {
+    content: '□';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+}
+
+body.dark .aali_tm_hero .simple_button a:hover::before {
+    content: '■';
+}
+
+body.dark .aali_tm_hero .simple_button a:after {
+    background: var(--nier-border-primary) !important;
+}
+
+/* ============================================= */
+/* Avatar/Image Section - NieR Panel Style */
+/* ============================================= */
+
+body.dark .aali_tm_hero .avatar {
+    z-index: 2;
+}
+
+body.dark .aali_tm_hero .avatar .one .in,
+body.dark .aali_tm_hero .avatar .two .in,
+body.dark .aali_tm_hero .avatar .three .in,
+body.dark .aali_tm_hero .five .in {
+    background-color: var(--nier-accent) !important;
+    opacity: 0.7;
+}
+
+body.dark .aali_tm_hero .avatar .four .in {
+    border-color: var(--nier-border-primary) !important;
+}
+
+body.dark .aali_tm_hero .stroke_text span {
+    -webkit-text-stroke: 2px var(--nier-border-light) !important;
+    text-stroke: 2px var(--nier-border-light) !important;
+}
+
+/* Social icons */
+body.dark .aali_tm_hero .social {
+    color: var(--nier-text-primary);
+}
+
+body.dark .aali_tm_hero .social span {
+    color: var(--nier-text-secondary);
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+body.dark .aali_tm_hero .social ul li a {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_hero .social ul li a:hover {
+    color: var(--nier-text-secondary) !important;
+}
+
+/* Email */
+body.dark .aali_tm_hero .hero_mail a {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-secondary);
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+/* Scroll indicator */
+body.dark .aali_tm_down svg {
+    stroke: var(--nier-border-primary) !important;
+}
+
+body.dark .aali_tm_down svg path {
+    stroke: var(--nier-border-primary) !important;
+}
+
+/* ============================================= */
+/* About Section - NieR Panel Style */
+/* ============================================= */
+
+body.dark .aali_tm_about {
+    background: var(--nier-bg-secondary);
+    position: relative;
+}
+
+body.dark .aali_tm_about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--nier-border-primary), transparent);
+}
+
+body.dark .aali_tm_about .center .small {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 14px;
+    position: relative;
+    display: inline-block;
+    padding-left: 24px;
+}
+
+body.dark .aali_tm_about .center .small::before {
+    content: '//';
+    position: absolute;
+    left: 0;
+    color: var(--nier-border-secondary);
+}
+
+body.dark .aali_tm_about .center h3 {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+body.dark .aali_tm_about .center h3 span {
+    color: var(--nier-text-primary) !important;
+    position: relative;
+}
+
+body.dark .aali_tm_about .center h3 span::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--nier-accent);
+}
+
+body.dark .aali_tm_about .center .subtitle {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-primary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+body.dark .aali_tm_about .text p {
+    color: var(--nier-text-secondary);
+    font-family: var(--nier-font-primary);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* Decorative elements */
+body.dark .aali_tm_about .square {
+    background-color: var(--nier-accent) !important;
+    opacity: 0.6;
+}
+
+body.dark .aali_tm_about .border .in {
+    border-color: var(--nier-border-secondary) !important;
+}
+
+body.dark .aali_tm_about .right .square {
+    background-color: var(--nier-accent) !important;
+    opacity: 0.4;
+}
+
+/* Image styling */
+body.dark .aali_tm_about .left .image .main,
+body.dark .aali_tm_about .right .main {
+    border-radius: 0 !important;
+    border: 1px solid var(--nier-border-primary);
+}
+
+/* ============================================= */
+/* Skills Section - NieR Status Panel Style */
+/* ============================================= */
+
+body.dark .aali_tm_skills {
+    background: var(--nier-bg-dark) !important;
+    border-top: 1px solid var(--nier-border-primary);
+    border-bottom: 1px solid var(--nier-border-primary);
+    position: relative;
+}
+
+/* Corner brackets decoration */
+body.dark .aali_tm_skills::before,
+body.dark .aali_tm_skills::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--nier-border-primary);
+    border-style: solid;
+    border-width: 0;
+}
+
+body.dark .aali_tm_skills::before {
+    top: 20px;
+    left: 20px;
+    border-top-width: 2px;
+    border-left-width: 2px;
+}
+
+body.dark .aali_tm_skills::after {
+    bottom: 20px;
+    right: 20px;
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+}
+
+body.dark .aali_tm_skills .border {
+    border-color: var(--nier-border-secondary) !important;
+}
+
+body.dark .aali_tm_main_title span {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 14px;
+}
+
+body.dark .aali_tm_main_title h3 {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+body.dark .aali_tm_main_title[data-color="light"] span,
+body.dark .aali_tm_main_title[data-color="light"] h3,
+body.dark .aali_tm_main_title[data-color="light"] p {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_main_title p {
+    color: var(--nier-text-secondary);
+}
+
+/* Progress bars - NieR Status Bar Style */
+body.dark .dodo_progress .progress_inner {
+    margin-bottom: 25px;
+}
+
+body.dark .dodo_progress .progress_inner span .label {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+body.dark .dodo_progress .progress_inner span .number {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-secondary);
+    font-size: 12px;
+}
+
+body.dark .dodo_progress .progress_inner .background {
+    background: var(--nier-bg-secondary) !important;
+    border: 1px solid var(--nier-border-secondary);
+    border-radius: 0 !important;
+    height: 10px;
+}
+
+body.dark .dodo_progress .progress_inner .bar {
+    border-radius: 0 !important;
+}
+
+body.dark .dodo_progress .progress_inner .bar_in {
+    background: linear-gradient(90deg, var(--nier-text-primary) 0%, var(--nier-text-secondary) 100%) !important;
+    border-radius: 0 !important;
+}
+
+/* ============================================= */
+/* Portfolio Section - NieR Item Grid Style */
+/* ============================================= */
+
+body.dark .aali_tm_portfolio {
+    background: var(--nier-bg-primary);
+}
+
+body.dark .aali_tm_portfolio .portfolio_filter ul {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--nier-border-primary);
+    background: var(--nier-bg-secondary);
+}
+
+body.dark .aali_tm_portfolio .portfolio_filter ul li a {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 12px 20px;
+    display: block;
+    border-right: 1px solid var(--nier-border-light);
+    position: relative;
+    transition: var(--nier-transition-fast);
+}
+
+body.dark .aali_tm_portfolio .portfolio_filter ul li:last-child a {
+    border-right: none;
+}
+
+body.dark .aali_tm_portfolio .portfolio_filter ul li a:hover,
+body.dark .aali_tm_portfolio .portfolio_filter ul li a.current {
+    background: var(--nier-text-primary) !important;
+    color: var(--nier-bg-primary) !important;
+}
+
+body.dark .aali_tm_portfolio .portfolio_filter ul li a.current::before {
+    content: '■';
+    margin-right: 8px;
+    font-size: 8px;
+}
+
+/* Portfolio items */
+body.dark .aali_tm_portfolio .portfolio_list ul li .list_inner {
+    border: 1px solid var(--nier-border-primary);
+    border-radius: 0 !important;
+    overflow: hidden;
+    transition: var(--nier-transition-normal);
+}
+
+body.dark .aali_tm_portfolio .portfolio_list ul li .list_inner:hover {
+    border-color: var(--nier-text-primary);
+    box-shadow: 0 10px 40px rgba(69, 65, 56, 0.15);
+}
+
+body.dark .aali_tm_portfolio .portfolio_list ul li .list_inner .overlay {
+    background: linear-gradient(135deg, rgba(218, 212, 187, 0.95) 0%, rgba(207, 201, 176, 0.95) 100%) !important;
+}
+
+body.dark .aali_tm_portfolio .portfolio_list ul li .details {
+    color: var(--nier-text-primary);
+}
+
+body.dark .aali_tm_portfolio .portfolio_list ul li .details span {
+    color: var(--nier-text-secondary);
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+}
+
+body.dark .aali_tm_portfolio .portfolio_list ul li .details h3 {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+body.dark .aali_tm_portfolio .portfolio_list ul li .list_inner .svg {
+    color: var(--nier-text-primary) !important;
+}
+
+/* ============================================= */
+/* Resume Section - NieR Data Panel Style */
+/* ============================================= */
+
+body.dark .aali_tm_resume {
+    background: var(--nier-bg-secondary);
+}
+
+body.dark .aali_tm_resume .content {
+    background: var(--nier-bg-secondary);
+}
+
+body.dark .aali_tm_resume .main_title {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-left: 20px;
+}
+
+body.dark .aali_tm_resume .main_title span {
+    position: relative;
+}
+
+body.dark .aali_tm_resume .main_title span::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 2px;
+    background: var(--nier-accent) !important;
+}
+
+body.dark .aali_tm_resume .list li .list_inner {
+    border: 1px solid var(--nier-border-secondary);
+    background: var(--nier-bg-panel);
+    border-radius: 0 !important;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: var(--nier-transition-fast);
+    position: relative;
+}
+
+body.dark .aali_tm_resume .list li .list_inner::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--nier-accent);
+    opacity: 0;
+    transition: var(--nier-transition-fast);
+}
+
+body.dark .aali_tm_resume .list li .list_inner:hover {
+    border-color: var(--nier-border-primary);
+    background: var(--nier-bg-dark);
+}
+
+body.dark .aali_tm_resume .list li .list_inner:hover::before {
+    opacity: 1;
+}
+
+body.dark .aali_tm_resume .icon {
+    background: var(--nier-accent) !important;
+    border-radius: 0 !important;
+}
+
+body.dark .aali_tm_resume .icon .svg {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_resume .info .left h3 {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+body.dark .aali_tm_resume .info .left span {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-primary);
+    font-size: 13px;
+}
+
+body.dark .aali_tm_resume .info .right span {
+    color: var(--nier-text-muted) !important;
+    font-family: var(--nier-font-secondary);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+body.dark .aali_tm_resume .text p {
+    color: var(--nier-text-secondary);
+    font-family: var(--nier-font-primary);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+body.dark .aali_tm_resume .media .square {
+    background: var(--nier-accent) !important;
+    opacity: 0.5;
+}
+
+/* ============================================= */
+/* Contact Section - NieR Input Panel Style */
+/* ============================================= */
+
+body.dark .aali_tm_contact {
+    background: var(--nier-bg-primary);
+    position: relative;
+}
+
+body.dark .aali_tm_contact::before {
+    content: 'CONTACT';
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: var(--nier-font-primary);
+    font-size: 100px;
+    font-weight: 700;
+    color: var(--nier-border-light);
+    letter-spacing: 20px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+body.dark .aali_tm_contact .left ul li .list_inner {
+    border: 1px solid var(--nier-border-secondary);
+    background: var(--nier-bg-panel);
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: var(--nier-transition-fast);
+}
+
+body.dark .aali_tm_contact .left ul li .list_inner:hover {
+    border-color: var(--nier-border-primary);
+    background: var(--nier-bg-dark);
+}
+
+body.dark .aali_tm_contact .left ul li span {
+    color: var(--nier-text-muted) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+}
+
+body.dark .aali_tm_contact .left ul li h3 {
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+body.dark .aali_tm_contact .left ul li h3 a {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_contact .left ul li .svg {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_contact .square {
+    background: var(--nier-accent) !important;
+    opacity: 0.4;
+}
+
+/* Form inputs - NieR style */
+body.dark .aali_tm_contact .right .input_list ul li input,
+body.dark .aali_tm_contact .message_area textarea {
+    background: var(--nier-bg-secondary) !important;
+    border: 1px solid var(--nier-border-secondary) !important;
+    border-radius: 0 !important;
+    color: var(--nier-text-primary) !important;
+    font-family: var(--nier-font-primary) !important;
+    font-size: 14px;
+    padding: 15px 20px;
+    transition: var(--nier-transition-fast);
+    box-shadow: none !important;
+}
+
+body.dark .aali_tm_contact .right .input_list ul li input:focus,
+body.dark .aali_tm_contact .message_area textarea:focus {
+    border-color: var(--nier-border-primary) !important;
+    background: var(--nier-bg-panel) !important;
+    outline: none;
+}
+
+body.dark .aali_tm_contact .right .input_list ul li input::placeholder,
+body.dark .aali_tm_contact .message_area textarea::placeholder {
+    color: var(--nier-text-muted) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+}
+
+/* ============================================= */
+/* Copyright/Footer - NieR Style */
+/* ============================================= */
+
+body.dark .aali_tm_copyright {
+    background: var(--nier-bg-dark) !important;
+    border-top: 1px solid var(--nier-border-primary);
+}
+
+body.dark .aali_tm_copyright .social span {
+    color: var(--nier-text-secondary);
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+}
+
+body.dark .aali_tm_copyright .social ul li a {
+    color: var(--nier-text-primary) !important;
+    background: transparent !important;
+    border: 1px solid var(--nier-border-secondary);
+    transition: var(--nier-transition-fast);
+}
+
+body.dark .aali_tm_copyright .social ul li a:hover {
+    background: var(--nier-text-primary) !important;
+    color: var(--nier-bg-primary) !important;
+    border-color: var(--nier-text-primary);
+}
+
+body.dark .aali_tm_copyright .bottom .left p,
+body.dark .aali_tm_copyright .bottom .left p a {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-primary);
+    font-size: 13px;
+}
+
+body.dark .aali_tm_copyright .bottom .right ul li a {
+    color: var(--nier-text-secondary) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 11px;
+}
+
+body.dark .aali_tm_copyright .border {
+    border-color: var(--nier-border-secondary) !important;
+}
+
+body.dark .aali_tm_copyright .square {
+    background: var(--nier-accent) !important;
+}
+
+body.dark .aali_tm_copyright .square .totop {
+    color: var(--nier-text-primary);
+}
+
+body.dark .aali_tm_copyright .square .svg {
+    color: var(--nier-text-primary) !important;
+}
+
+/* ============================================= */
+/* Modal Box - NieR Panel Style */
+/* ============================================= */
+
+body.dark .aali_tm_modalbox .box_inner {
+    background: var(--nier-bg-panel) !important;
+    border: 1px solid var(--nier-border-primary);
+    border-radius: 0 !important;
+}
+
+body.dark .aali_tm_modalbox .close a {
+    background: var(--nier-bg-secondary) !important;
+    border: 1px solid var(--nier-border-primary);
+    border-radius: 0 !important;
+    transition: var(--nier-transition-fast);
+}
+
+body.dark .aali_tm_modalbox .close a:hover {
+    background: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_modalbox .close a:hover .svg {
+    color: var(--nier-bg-primary) !important;
+}
+
+body.dark .aali_tm_modalbox .close .svg {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_modalbox .description_wrap {
+    scrollbar-color: var(--nier-border-primary) var(--nier-bg-secondary);
+}
+
+body.dark .aali_tm_modalbox .service_popup_informations .main_title span {
+    color: var(--nier-text-primary) !important;
+}
+
+body.dark .aali_tm_modalbox .main_details .detailbox .first {
+    color: var(--nier-text-muted) !important;
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ============================================= */
+/* Cursor - NieR Style */
+/* ============================================= */
+
+body.dark .cursor-outer {
+    border: 1px solid var(--nier-border-primary) !important;
+    border-radius: 0 !important;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+body.dark .cursor-inner {
+    background: var(--nier-text-primary) !important;
+    border-radius: 0 !important;
+    width: 4px !important;
+    height: 4px !important;
+}
+
+body.dark .cursor-inner.cursor-hover {
+    background: var(--nier-accent) !important;
+    width: 8px !important;
+    height: 8px !important;
+}
+
+/* ============================================= */
+/* Decorative NieR Elements */
+/* ============================================= */
+
+/* Status indicators */
+.nier-status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--nier-text-primary);
+    margin-right: 8px;
+}
+
+.nier-status-dot.active {
+    background: var(--nier-accent);
+}
+
+/* Data lines */
+.nier-data-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--nier-border-light);
+    font-family: var(--nier-font-primary);
+    font-size: 13px;
+}
+
+.nier-data-line .label {
+    color: var(--nier-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nier-data-line .value {
+    color: var(--nier-text-primary);
+    font-family: var(--nier-font-secondary);
+}
+
+/* Section dividers */
+.nier-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--nier-border-primary), transparent);
+    margin: 40px 0;
+}
+
+/* Corner brackets for panels */
+.nier-panel {
+    position: relative;
+    padding: 30px;
+    background: var(--nier-bg-panel);
+    border: 1px solid var(--nier-border-secondary);
+}
+
+.nier-panel::before,
+.nier-panel::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-color: var(--nier-border-primary);
+    border-style: solid;
+}
+
+.nier-panel::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+}
+
+.nier-panel::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+}
+
+/* ============================================= */
+/* Animation Effects */
+/* ============================================= */
+
+/* Glitch effect on hover (subtle) */
+@keyframes nier-glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(-1px, -1px); }
+    60% { transform: translate(1px, 1px); }
+    80% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+}
+
+/* Scan line animation */
+@keyframes nier-scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+/* Pulse for active elements */
+@keyframes nier-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Loading dots */
+@keyframes nier-loading {
+    0%, 20% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ============================================= */
+/* Responsive Adjustments */
+/* ============================================= */
+
+@media (max-width: 1040px) {
+    body.dark .aali_tm_hero .content .name {
+        font-size: 80px;
+    }
+    
+    body.dark .aali_tm_hero .cd-headline b {
+        font-size: 36px;
+    }
+    
+    body.dark .aali_tm_contact::before {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    body.dark .aali_tm_hero .content .name {
+        font-size: 50px;
+        letter-spacing: 2px;
+    }
+    
+    body.dark .aali_tm_hero .content .name::before,
+    body.dark .aali_tm_hero .content .name::after {
+        display: none;
+    }
+    
+    body.dark .aali_tm_hero .cd-headline b {
+        font-size: 28px;
+    }
+    
+    body.dark .aali_tm_portfolio .portfolio_filter ul {
+        flex-wrap: wrap;
+    }
+    
+    body.dark .aali_tm_portfolio .portfolio_filter ul li a {
+        padding: 10px 15px;
+        font-size: 11px;
+    }
+    
+    body.dark .aali_tm_about .center h3 {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    body.dark .aali_tm_hero .content .name {
+        font-size: 36px;
+    }
+    
+    body.dark .aali_tm_hero .cd-headline b {
+        font-size: 22px;
+    }
+    
+    body.dark .aali_tm_about .center h3 {
+        font-size: 32px;
+    }
+    
+    body.dark .aali_tm_button a {
+        padding: 12px 30px 12px 16px;
+        font-size: 12px;
+    }
+}
+
+/* ============================================= */
+/* NieR Status Bar Elements */
+/* ============================================= */
+
+/* HP/MP style progress bars */
+body.dark .nier-hp-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--nier-bg-secondary);
+    border: 1px solid var(--nier-border-primary);
+    position: relative;
+    margin: 8px 0;
+}
+
+body.dark .nier-hp-bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, 
+        var(--nier-text-primary) 0%, 
+        var(--nier-text-secondary) 50%, 
+        var(--nier-accent) 100%
+    );
+    transition: width 0.5s ease;
+}
+
+/* NieR-style checkbox/selector */
+body.dark .nier-checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--nier-font-primary);
+    color: var(--nier-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 13px;
+}
+
+body.dark .nier-checkbox::before {
+    content: '□';
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+body.dark .nier-checkbox.active::before {
+    content: '■';
+}
+
+body.dark .nier-checkbox:hover {
+    color: var(--nier-text-secondary);
+}
+
+/* Data readout style */
+body.dark .nier-readout {
+    font-family: var(--nier-font-secondary);
+    color: var(--nier-text-muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 4px 0;
+    border-bottom: 1px dotted var(--nier-border-light);
+}
+
+body.dark .nier-readout .label {
+    color: var(--nier-text-secondary);
+    margin-right: 15px;
+}
+
+body.dark .nier-readout .value {
+    color: var(--nier-text-primary);
+    float: right;
+}
+
+/* Section header with brackets */
+body.dark .nier-section-header {
+    font-family: var(--nier-font-primary);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--nier-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 15px 20px;
+    border: 1px solid var(--nier-border-primary);
+    background: var(--nier-bg-dark);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+body.dark .nier-section-header::before {
+    content: '//';
+    margin-right: 15px;
+    color: var(--nier-text-muted);
+}
+
+/* List item with NieR styling */
+body.dark .nier-list-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border: 1px solid transparent;
+    margin-bottom: 4px;
+    background: var(--nier-bg-panel);
+    transition: var(--nier-transition-fast);
+    cursor: pointer;
+    font-family: var(--nier-font-primary);
+    color: var(--nier-text-primary);
+}
+
+body.dark .nier-list-item::before {
+    content: '○';
+    margin-right: 12px;
+    font-size: 10px;
+    color: var(--nier-text-muted);
+}
+
+body.dark .nier-list-item:hover {
+    border-color: var(--nier-border-secondary);
+    background: var(--nier-bg-dark);
+}
+
+body.dark .nier-list-item:hover::before {
+    content: '●';
+    color: var(--nier-text-primary);
+}
+
+body.dark .nier-list-item.selected {
+    border-color: var(--nier-border-primary);
+    background: var(--nier-bg-dark);
+}
+
+body.dark .nier-list-item.selected::before {
+    content: '■';
+    color: var(--nier-text-primary);
+}
+
+/* ============================================= */
+/* Animated Scan Line Overlay (Optional) */
+/* ============================================= */
+
+body.dark .aali_tm_hero .scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(69, 65, 56, 0.3), 
+        transparent
+    );
+    animation: nier-scan 4s linear infinite;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* ============================================= */
+/* Form Elements - Enhanced NieR Style */
+/* ============================================= */
+
+body.dark .contact_form .returnmessage,
+body.dark .contact_form .empty_notice {
+    background: var(--nier-bg-dark);
+    border: 1px solid var(--nier-border-primary);
+    color: var(--nier-text-primary);
+    font-family: var(--nier-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+/* ============================================= */
+/* NieR Window/Panel Style */
+/* ============================================= */
+
+body.dark .nier-window {
+    background: var(--nier-bg-panel);
+    border: 1px solid var(--nier-border-primary);
+    position: relative;
+}
+
+body.dark .nier-window-header {
+    background: var(--nier-bg-dark);
+    border-bottom: 1px solid var(--nier-border-primary);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.dark .nier-window-title {
+    font-family: var(--nier-font-primary);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nier-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+body.dark .nier-window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+body.dark .nier-window-controls span {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--nier-border-primary);
+    cursor: pointer;
+}
+
+body.dark .nier-window-content {
+    padding: 20px;
+}
+
+/* ============================================= */
+/* Subtle Noise Texture Overlay */
+/* ============================================= */
+
+body.dark .aali_tm_all_wrap::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* ============================================= */
+/* Special Hover Effects */
+/* ============================================= */
+
+/* Bracket expand effect on hover */
+body.dark .nier-bracket-hover {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+body.dark .nier-bracket-hover::before,
+body.dark .nier-bracket-hover::after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: var(--nier-border-secondary);
+    transition: var(--nier-transition-fast);
+    opacity: 0;
+}
+
+body.dark .nier-bracket-hover::before {
+    content: '[';
+    left: 5px;
+}
+
+body.dark .nier-bracket-hover::after {
+    content: ']';
+    right: 5px;
+}
+
+body.dark .nier-bracket-hover:hover::before {
+    left: 0;
+    opacity: 1;
+}
+
+body.dark .nier-bracket-hover:hover::after {
+    right: 0;
+    opacity: 1;
+}
+
+/* ============================================= */
+/* Print Styles */
+/* ============================================= */
+
+@media print {
+    body.dark {
+        background: white !important;
+        color: black !important;
+    }
+    
+    body.dark .aali_tm_all_wrap::before,
+    body.dark .aali_tm_all_wrap::after {
+        display: none !important;
+    }
+}
