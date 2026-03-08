@@ -1,0 +1,12 @@
+{
+    "chat.mcp.serverSampling": {
+        "ProjectPersonalWebsite/.vscode/mcp.json: figma": {
+            "allowedModels": [
+                "copilotcli/claude-sonnet-4.6",
+                "claude-code/claude-sonnet-4.6",
+                "copilot/gpt-5.3-codex",
+                "copilot/claude-opus-4.6"
+            ]
+        }
+    }
+}

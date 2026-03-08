@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta name="description" content="Sadman Mazumder — Developer, Designer, Programmer" />
+<meta name="author" content="Sadman Mazumder" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Sadman Mazumder</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<!-- Theme -->
+<link rel="stylesheet" href="css/gallery-theme.css" />
+</head>
+
+<body>
+
+<!-- ============================================================ -->
+<!-- LOADING SCREEN                                              -->
+<!-- ============================================================ -->
+<div id="gallery-loader">
+  <div class="loader-lily">
+    <!--
+      Structure: rotation wrapper (SVG attr) → animated inner group (CSS translateY) → path
+      This lets translateY(-80px) always mean "fly outward" regardless of rotation angle.
+
+      Petal shapes:
+        Outer  — tall pointed diamond: wide at 40% from tip, sharp at both ends
+        Mid    — 2/3 height of outer, same width ratio
+        Inner  — "compressed": short but wide (wider than tall), 45° diagonal
+    -->
+    <svg viewBox="-85 -85 170 170" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- ═══ OUTER PETALS — diagonal (45°, 135°, 225°, 315°) ════════════════ -->
+      <g transform="rotate(45)">
+        <g class="lily-petal petal-outer">
+          <path d="M0,-10 C18,-28 18,-54 0,-68 C-18,-54 -18,-28 0,-10Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(135)">
+        <g class="lily-petal petal-outer">
+          <path d="M0,-10 C18,-28 18,-54 0,-68 C-18,-54 -18,-28 0,-10Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(225)">
+        <g class="lily-petal petal-outer">
+          <path d="M0,-10 C18,-28 18,-54 0,-68 C-18,-54 -18,-28 0,-10Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(315)">
+        <g class="lily-petal petal-outer">
+          <path d="M0,-10 C18,-28 18,-54 0,-68 C-18,-54 -18,-28 0,-10Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+
+      <!-- ═══ MID PETALS — cardinal (0°, 90°, 180°, 270°), 2/3 of outer ═══════ -->
+      <g transform="rotate(0)">
+        <g class="lily-petal petal-mid">
+          <path d="M0,-9 C12,-20 12,-36 0,-46 C-12,-36 -12,-20 0,-9Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(90)">
+        <g class="lily-petal petal-mid">
+          <path d="M0,-9 C12,-20 12,-36 0,-46 C-12,-36 -12,-20 0,-9Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(180)">
+        <g class="lily-petal petal-mid">
+          <path d="M0,-9 C12,-20 12,-36 0,-46 C-12,-36 -12,-20 0,-9Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(270)">
+        <g class="lily-petal petal-mid">
+          <path d="M0,-9 C12,-20 12,-36 0,-46 C-12,-36 -12,-20 0,-9Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+
+      <!-- ═══ INNER PETALS — diagonal (45°, 135°, 225°, 315°), compressed ═════ -->
+      <!-- "Compressed" = visibly wider relative to height than the outer petals -->
+      <g transform="rotate(45)">
+        <g class="lily-petal petal-inner">
+          <path d="M0,-7 C16,-12 16,-18 0,-23 C-16,-18 -16,-12 0,-7Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(135)">
+        <g class="lily-petal petal-inner">
+          <path d="M0,-7 C16,-12 16,-18 0,-23 C-16,-18 -16,-12 0,-7Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(225)">
+        <g class="lily-petal petal-inner">
+          <path d="M0,-7 C16,-12 16,-18 0,-23 C-16,-18 -16,-12 0,-7Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+      <g transform="rotate(315)">
+        <g class="lily-petal petal-inner">
+          <path d="M0,-7 C16,-12 16,-18 0,-23 C-16,-18 -16,-12 0,-7Z"
+                fill="none" stroke="white" stroke-width="2"/>
+        </g>
+      </g>
+
+      <!-- ═══ CENTER CIRCLE ═══════════════════════════════════════════════════ -->
+      <circle class="lily-center" cx="0" cy="0" r="9"
+              fill="none" stroke="white" stroke-width="2"/>
+
+    </svg>
+  </div>
+</div>
+<!-- /LOADING SCREEN -->
+
+
+<!-- ============================================================ -->
+<!-- SITE CONTENT                                                -->
+<!-- ============================================================ -->
+<div id="gallery-site">
+
+  <!-- NAV -->
+  <nav id="gallery-nav">
+    <span class="nav-name">Sadman Mazumder</span>
+    <ul class="nav-links">
+      <li><a href="#gallery-about">About</a></li>
+      <li><a href="#gallery-projects">Projects</a></li>
+      <li><a href="#gallery-art-teaser">Art</a></li>
+      <li><a href="#gallery-contact">Contact</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="nav-mobile-drawer" id="nav-drawer">
+    <ul>
+      <li><a href="#gallery-about"   onclick="closeDrawer()">About</a></li>
+      <li><a href="#gallery-projects" onclick="closeDrawer()">Projects</a></li>
+      <li><a href="#gallery-art-teaser" onclick="closeDrawer()">Art</a></li>
+      <li><a href="#gallery-contact" onclick="closeDrawer()">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- HERO / LANDING                                            -->
+  <!-- ========================================================== -->
+  <section id="gallery-hero">
+
+    <!-- Lily pad — left background -->
+    <div class="hero-lilypad">
+      <img src="img/hero/lilypad.jpg" alt="Water lily pad" />
+    </div>
+
+    <!-- Water lily petal — right foreground -->
+    <div class="hero-petal">
+      <img src="img/hero/lilypetal.png" alt="Water lily petal" />
+    </div>
+
+    <!-- Name top-left -->
+    <div class="hero-text">
+      <h1 class="hero-name">Sadman<br>Mazumder</h1>
+      <span class="hero-subtitle">Developer &amp; Designer</span>
+    </div>
+
+    <!-- Scroll cue -->
+    <a class="hero-scroll-cue" href="#gallery-about">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </a>
+
+  </section>
+  <!-- /HERO -->
+
+
+  <!-- ========================================================== -->
+  <!-- ABOUT                                                      -->
+  <!-- ========================================================== -->
+  <section id="gallery-about">
+    <div class="about-grid">
+
+      <div class="about-image-wrap">
+        <img src="img/about/Sadman1.jpg" alt="Sadman Mazumder" />
+      </div>
+
+      <div class="about-content">
+        <span class="section-label">About</span>
+        <h2 class="section-title">Sadman Mazumder</h2>
+        <span class="about-role">Developer — New Jersey Institute of Technology</span>
+
+        <div class="about-text">
+          <p>I'm an undergrad at New Jersey Institute of Technology with a <b class="S">Bachelor's degree</b> in Information Technology and a minor in Computer Science. I'm deeply passionate about technology and using it as a means to solve problems and express stories.</p>
+          <p>My work spans into multiple areas, some of which include Web Development, Artificial Intelligence and Machine Learning, and Game Development. I leverage these skills to make a meaningful impact in the industry.</p>
+          <p>As a Lead STEM Instructor at the RChild with nearly three years of experience teaching hundreds of students, I've able to communicate complex concepts with ease. It is a skill that carries over into every project I undertake.</p>
+          <p>My goal is to become a Software Engineer, continuously learning and building the things that will impact the world. I additionally aspire to be a Game Developer, as I'm passionate about using gaming as a means of expressing meaningful and engrossing stories.</p>
+          <p>Creativity and the Art of it all is deeply important to me, illustrated from the design of my site to the Art portfolio included. I aim to bring the imagination and wonders of the arts with technology to create memorable and impactful experiences.</p>
+        </div>
+
+        <a href="img/cv/Resume_SadmanMazumder.pdf" download class="gallery-btn">
+          Download Resume
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <!-- /ABOUT -->
+
+
+  <!-- ========================================================== -->
+  <!-- PROJECTS                                                   -->
+  <!-- ========================================================== -->
+  <section id="gallery-projects">
+    <div class="projects-header">
+      <div>
+        <span class="section-label">Work</span>
+        <h2 class="section-title" style="margin-bottom:0">Projects</h2>
+      </div>
+      <a href="https://github.com/SadmanMazumder" target="_blank" rel="noopener" class="gallery-btn gallery-btn-ghost">
+        View GitHub
+      </a>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card">
+        <img class="project-card-img" src="img/portfolio/1.jpg" alt="Project" />
+        <div class="project-card-overlay">
+          <span class="project-card-tag">Machine Learning</span>
+          <h3 class="project-card-title">Image Recognition AI</h3>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <img class="project-card-img" src="img/portfolio/2.jpg" alt="Project" />
+        <div class="project-card-overlay">
+          <span class="project-card-tag">Web Development</span>
+          <h3 class="project-card-title">Portfolio Website</h3>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <img class="project-card-img" src="img/portfolio/3.jpg" alt="Project" />
+        <div class="project-card-overlay">
+          <span class="project-card-tag">Data Science</span>
+          <h3 class="project-card-title">Data Analysis Project</h3>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card">
+        <img class="project-card-img" src="img/portfolio/4.jpg" alt="Project" />
+        <div class="project-card-overlay">
+          <span class="project-card-tag">Robotics</span>
+          <h3 class="project-card-title">NJIT Robotics</h3>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card">
+        <img class="project-card-img" src="img/portfolio/5.jpg" alt="Project" />
+        <div class="project-card-overlay">
+          <span class="project-card-tag">Software</span>
+          <h3 class="project-card-title">Game Development</h3>
+        </div>
+      </div>
+
+      <!-- Project 6 — Coming soon placeholder -->
+      <div class="project-card project-card-placeholder">
+        <span>More Coming Soon</span>
+      </div>
+
+    </div>
+  </section>
+  <!-- /PROJECTS -->
+
+
+  <!-- ========================================================== -->
+  <!-- ART TEASER                                                 -->
+  <!-- ========================================================== -->
+  <section id="gallery-art-teaser">
+    <div class="art-teaser-inner">
+
+      <div class="art-teaser-text">
+        <span class="section-label">Creative Work</span>
+        <h2 class="section-title">Art Gallery</h2>
+        <p>A curated collection of my personal artwork — illustrations, digital paintings, and creative explorations. Pieces added continuously.</p>
+        <a href="art.html" class="gallery-btn">Enter Gallery</a>
+      </div>
+
+      <div class="art-teaser-visual">
+        <!-- Placeholders — replace with actual art thumbnails when available -->
+        <div class="art-teaser-tile art-teaser-tile-empty"><span>Soon</span></div>
+        <div class="art-teaser-tile art-teaser-tile-empty"><span>Soon</span></div>
+        <div class="art-teaser-tile art-teaser-tile-empty"><span>Soon</span></div>
+        <div class="art-teaser-tile art-teaser-tile-empty"><span>Soon</span></div>
+      </div>
+
+    </div>
+  </section>
+  <!-- /ART TEASER -->
+
+
+  <!-- ========================================================== -->
+  <!-- CONTACT                                                    -->
+  <!-- ========================================================== -->
+  <section id="gallery-contact">
+    <div class="contact-inner">
+
+      <div class="contact-info">
+        <span class="section-label">Get in Touch</span>
+        <h2 class="section-title">Contact</h2>
+        <p>Interested in working together, have a question, or just want to say hello? I'd love to hear from you.</p>
+
+        <ul class="contact-details">
+          <li>
+            <span class="detail-label">Email</span>
+            <span class="detail-value">
+              <a href="mailto:sadmanimazumder@gmail.com">sadmanimazumder@gmail.com</a>
+            </span>
+          </li>
+          <li>
+            <span class="detail-label">Phone</span>
+            <span class="detail-value">(347) 935-6208</span>
+          </li>
+          <li>
+            <span class="detail-label">Location</span>
+            <span class="detail-value">West New York, NJ — USA</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="contact-form-wrap">
+        <form id="gallery-contact-form" autocomplete="off" novalidate>
+          <div class="form-group">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" type="text" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" type="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" placeholder="Your message" required></textarea>
+          </div>
+          <button type="submit" class="gallery-btn" style="border:none;cursor:pointer;">
+            Send Message
+          </button>
+          <p class="form-success" id="form-success">Message sent: I'll be in touch soon.</p>
+          <p class="form-error"   id="form-error">Please fill in all fields before sending.</p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+  <!-- /CONTACT -->
+
+
+  <!-- ========================================================== -->
+  <!-- FOOTER                                                     -->
+  <!-- ========================================================== -->
+  <footer id="gallery-footer">
+    <div class="footer-inner">
+      <span class="footer-name">Sadman Mazumder</span>
+      <span class="footer-copy">&copy; 2026</span>
+      <ul class="footer-socials">
+        <li><a href="https://github.com/SadmanMazumder" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</div>
+<!-- /SITE CONTENT -->
+
+
+<!-- ============================================================ -->
+<!-- SCRIPTS                                                     -->
+<!-- ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ---- Loading screen ---- */
+  var loader   = document.getElementById('gallery-loader');
+  var site     = document.getElementById('gallery-site');
+  var loaderShown = sessionStorage.getItem('loaderShown');
+
+  function revealSite() {
+    loader.classList.add('fade-out');
+    site.classList.add('visible');
+    setTimeout(function () {
+      loader.classList.add('hidden');
+    }, 900);
+    sessionStorage.setItem('loaderShown', '1');
+  }
+
+  if (loaderShown) {
+    /* Skip loader on subsequent page visits within the session */
+    loader.classList.add('hidden');
+    site.classList.add('visible');
+  } else {
+    /* All petals gone by ~1s (last: 0.34s delay + 0.65s anim = 0.99s) */
+    setTimeout(revealSite, 1200);
+  }
+
+  /* ---- Nav scroll class ---- */
+  var nav = document.getElementById('gallery-nav');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 10) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ---- Mobile nav toggle ---- */
+  var toggle = document.getElementById('nav-toggle');
+  var drawer = document.getElementById('nav-drawer');
+
+  toggle.addEventListener('click', function () {
+    drawer.classList.toggle('open');
+  });
+
+  window.closeDrawer = function () {
+    drawer.classList.remove('open');
+  };
+
+  /* ---- Contact form ---- */
+  var form    = document.getElementById('gallery-contact-form');
+  var success = document.getElementById('form-success');
+  var error   = document.getElementById('form-error');
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name    = document.getElementById('cf-name').value.trim();
+      var email   = document.getElementById('cf-email').value.trim();
+      var message = document.getElementById('cf-message').value.trim();
+
+      if (!name || !email || !message) {
+        error.style.display = 'block';
+        success.style.display = 'none';
+        return;
+      }
+
+      error.style.display = 'none';
+      /* Simple mailto fallback (replace with backend/Formspree as needed) */
+      var subject = encodeURIComponent('Portfolio Contact from ' + name);
+      var body    = encodeURIComponent(message + '\n\nFrom: ' + name + ' <' + email + '>');
+      window.location.href = 'mailto:SadmanIMazumder@gmail.com?subject=' + subject + '&body=' + body;
+      success.style.display = 'block';
+      form.reset();
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta name="description" content="Art Gallery — Sadman Mazumder" />
+<meta name="author" content="Sadman Mazumder" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Art — Sadman Mazumder</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/gallery-theme.css" />
+
+<style>
+  /* Art page specific styles */
+
+  #art-hero {
+    padding: 140px 48px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--gallery-mid-gray);
+  }
+
+  .art-hero-label {
+    font-family: var(--gallery-font-sans) !important;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gallery-dark-gray) !important;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .art-hero-title {
+    font-family: var(--gallery-font-serif) !important;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 400 !important;
+    color: var(--gallery-black) !important;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .art-hero-desc {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--gallery-dark-gray) !important;
+    max-width: 560px;
+  }
+
+  /* Gallery grid */
+  #art-grid-section {
+    padding: 64px 48px 120px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .art-grid {
+    columns: 3;
+    column-gap: 16px;
+  }
+
+  .art-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: var(--gallery-light-gray);
+  }
+
+  .art-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    filter: grayscale(10%);
+  }
+
+  .art-item:hover img {
+    transform: scale(1.03);
+    filter: grayscale(0%);
+  }
+
+  .art-item-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .art-item:hover .art-item-caption {
+    opacity: 1;
+  }
+
+  .art-item-caption h3 {
+    font-family: var(--gallery-font-serif) !important;
+    font-size: 15px;
+    font-weight: 400 !important;
+    color: #fff !important;
+    margin: 0 0 4px;
+  }
+
+  .art-item-caption span {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    font-family: var(--gallery-font-sans) !important;
+  }
+
+  /* Placeholder tile */
+  .art-item-placeholder {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    background: var(--gallery-light-gray);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    gap: 12px;
+  }
+
+  .art-item-placeholder .placeholder-icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--gallery-mid-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .art-item-placeholder .placeholder-icon::after {
+    content: '+';
+    font-size: 18px;
+    color: var(--gallery-mid-gray);
+    line-height: 1;
+  }
+
+  .art-item-placeholder span {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gallery-mid-gray) !important;
+    font-family: var(--gallery-font-sans) !important;
+  }
+
+  /* Lightbox */
+  #art-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #art-lightbox.open {
+    display: flex;
+  }
+
+  .lightbox-img-wrap {
+    max-width: 85vw;
+    max-height: 85vh;
+    position: relative;
+  }
+
+  .lightbox-img-wrap img {
+    max-width: 85vw;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .lightbox-close:hover { opacity: 1; }
+
+  @media (max-width: 900px) {
+    #art-hero { padding: 120px 24px 48px; }
+    #art-grid-section { padding: 48px 24px 80px; }
+    .art-grid { columns: 2; }
+  }
+
+  @media (max-width: 560px) {
+    .art-grid { columns: 1; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav id="gallery-nav">
+  <a href="index.html" class="nav-name" style="text-decoration:none;">Sadman Mazumder</a>
+  <ul class="nav-links">
+    <li><a href="index.html#gallery-about">About</a></li>
+    <li><a href="index.html#gallery-projects">Projects</a></li>
+    <li><a href="art.html" class="active">Art</a></li>
+    <li><a href="index.html#gallery-contact">Contact</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Open menu">
+    <span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile-drawer" id="nav-drawer">
+  <ul>
+    <li><a href="index.html#gallery-about"    onclick="closeDrawer()">About</a></li>
+    <li><a href="index.html#gallery-projects"  onclick="closeDrawer()">Projects</a></li>
+    <li><a href="art.html"                     onclick="closeDrawer()">Art</a></li>
+    <li><a href="index.html#gallery-contact"   onclick="closeDrawer()">Contact</a></li>
+  </ul>
+</div>
+
+
+<!-- ART PAGE HERO -->
+<div id="art-hero">
+  <span class="art-hero-label">Creative Work</span>
+  <h1 class="art-hero-title">Art Gallery</h1>
+  <p class="art-hero-desc">A collection of my personal artwork — illustrations, digital paintings, and creative explorations. New pieces added continuously.</p>
+</div>
+
+
+<!-- GALLERY GRID -->
+<div id="art-grid-section">
+  <div class="art-grid" id="art-grid">
+
+    <!--
+      TO ADD ARTWORK:
+      Replace the placeholder tiles below with real entries following this pattern:
+
+      <div class="art-item" onclick="openLightbox('img/art/your-image.jpg')">
+        <img src="img/art/your-image.jpg" alt="Artwork title" loading="lazy" />
+        <div class="art-item-caption">
+          <h3>Title</h3>
+          <span>Medium, Year</span>
+        </div>
+      </div>
+    -->
+
+    <!-- Placeholders — remove and replace with artwork as you add pieces -->
+    <div class="art-item-placeholder" style="min-height:320px">
+      <div class="placeholder-icon"></div>
+      <span>Artwork Coming Soon</span>
+    </div>
+
+    <div class="art-item-placeholder" style="min-height:240px">
+      <div class="placeholder-icon"></div>
+      <span>Coming Soon</span>
+    </div>
+
+    <div class="art-item-placeholder" style="min-height:400px">
+      <div class="placeholder-icon"></div>
+      <span>Coming Soon</span>
+    </div>
+
+    <div class="art-item-placeholder" style="min-height:280px">
+      <div class="placeholder-icon"></div>
+      <span>Coming Soon</span>
+    </div>
+
+    <div class="art-item-placeholder" style="min-height:360px">
+      <div class="placeholder-icon"></div>
+      <span>Coming Soon</span>
+    </div>
+
+    <div class="art-item-placeholder" style="min-height:220px">
+      <div class="placeholder-icon"></div>
+      <span>Coming Soon</span>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- LIGHTBOX -->
+<div id="art-lightbox" role="dialog" aria-modal="true" onclick="closeLightbox(event)">
+  <div class="lightbox-img-wrap">
+    <button class="lightbox-close" onclick="closeLightboxDirect()" aria-label="Close">&times;</button>
+    <img id="lightbox-img" src="" alt="Artwork" />
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer id="gallery-footer">
+  <div class="footer-inner">
+    <span class="footer-name">Sadman Mazumder</span>
+    <span class="footer-copy">&copy; 2026</span>
+    <ul class="footer-socials">
+      <li><a href="https://github.com/SadmanMazumder" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  'use strict';
+
+  /* Nav scroll */
+  var nav = document.getElementById('gallery-nav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  /* Mobile nav */
+  document.getElementById('nav-toggle').addEventListener('click', function () {
+    document.getElementById('nav-drawer').classList.toggle('open');
+  });
+
+  window.closeDrawer = function () {
+    document.getElementById('nav-drawer').classList.remove('open');
+  };
+
+  /* Lightbox */
+  window.openLightbox = function (src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('art-lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeLightboxDirect = function () {
+    document.getElementById('art-lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.closeLightbox = function (e) {
+    if (e.target === document.getElementById('art-lightbox')) {
+      closeLightboxDirect();
+    }
+  };
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLightboxDirect();
+  });
+
+})();
+</script>
+
+</body>
+</html>
