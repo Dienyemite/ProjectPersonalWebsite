@@ -132,7 +132,10 @@
 
   <!-- Water lily flower — fixed overlay, rotates on scroll, behind all content -->
   <div class="hero-petal">
-    <img src="img/hero/lilyflower.png" alt="" aria-hidden="true" />
+    <!-- base: always shows original colours (yellow center never tinted) -->
+    <img class="petal-base" src="img/hero/lilyflower.png" alt="" aria-hidden="true" />
+    <!-- tinted: same image, CSS filter applied for pink hue; radial mask cuts out yellow center -->
+    <img class="petal-tinted" src="img/hero/lilyflower.png" alt="" aria-hidden="true" />
   </div>
 
   <!-- NAV -->
@@ -515,16 +518,26 @@
   /* ---- Nav scroll class ---- */
   var nav = document.getElementById('gallery-nav');
 
-  /* ---- Lily flower scroll rotation ---- */
-  var petalEl   = document.querySelector('.hero-petal');
-  var petalAngle = 0;       // accumulated degrees
-  var lastScrollY = window.scrollY;
-  var rafPending  = false;
+  /* ---- Lily flower scroll rotation + pink tint ---- */
+  var petalEl      = document.querySelector('.hero-petal');
+  var petalTinted  = petalEl.querySelector('.petal-tinted');
+  var petalAngle   = 0;
+  var lastScrollY  = window.scrollY;
+  var rafPending   = false;
 
   function applyPetalRotation() {
     rafPending = false;
-    // translateY(-50%) keeps it vertically centred; rotate on top
     petalEl.style.transform = 'translateY(-50%) rotate(' + petalAngle + 'deg)';
+    var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    var t = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0;
+    if (t <= 0) {
+      petalTinted.style.filter = 'none';
+    } else {
+      petalTinted.style.filter =
+        'sepia(' + t.toFixed(3) + ') ' +
+        'hue-rotate(290deg) ' +
+        'saturate(' + (1 + t * 2).toFixed(3) + ')';
+    }
   }
 
   window.addEventListener('scroll', function () {
