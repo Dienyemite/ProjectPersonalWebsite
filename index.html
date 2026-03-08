@@ -130,6 +130,11 @@
 <!-- ============================================================ -->
 <div id="gallery-site">
 
+  <!-- Water lily flower — fixed overlay, rotates on scroll, behind all content -->
+  <div class="hero-petal">
+    <img src="img/hero/lilyflower.png" alt="" aria-hidden="true" />
+  </div>
+
   <!-- NAV -->
   <nav id="gallery-nav">
     <span class="nav-name">Sadman Mazumder</span>
@@ -162,15 +167,10 @@
     <!-- Lily pad — left background (CSS gradient, no img) -->
     <div class="hero-lilypad"></div>
 
-    <!-- Water lily flower — right foreground -->
-    <div class="hero-petal">
-      <img src="img/hero/lilyflower.png" alt="Water lily flower" />
-    </div>
-
     <!-- Name top-left -->
     <div class="hero-text">
       <h1 class="hero-name">Sadman<br>Mazumder</h1>
-      <span class="hero-subtitle">Developer &amp; Designer</span>
+      <span class="hero-subtitle">Developer &amp; Artist</span>
     </div>
 
     <!-- Scroll cue -->
@@ -196,18 +196,19 @@
       <div class="about-content">
         <span class="section-label">About</span>
         <h2 class="section-title">Sadman Mazumder</h2>
-        <span class="about-role">Developer — New Jersey Institute of Technology</span>
+        <span class="about-role">Developer &amp; Artist | New Jersey Institute of Technology</span>
 
         <div class="about-text">
-          <p>I'm an undergrad at New Jersey Institute of Technology with a <b class="S">Bachelor's degree</b> in Information Technology and a minor in Computer Science. I'm deeply passionate about technology and using it as a means to solve problems and express stories.</p>
+          <p>Hello! Welcome to my website. I love Water Lilies, which back home we refer to as <i>Shapla</i>, it speaks to the artsy side of me, so I have my site with that aesthetic in mind.</p>
+          <p>I'm an undergrad at New Jersey Institute of Technology with a <b class="S">Bachelor's degree</b> in Information Technology and a minor in Computer Science. I'm deeply passionate about technology and the arts, and using them in conjunction as a means to solve problems and express stories.</p>
           <p>My work spans into multiple areas, some of which include Web Development, Artificial Intelligence and Machine Learning, and Game Development. I leverage these skills to make a meaningful impact in the industry.</p>
           <p>As a Lead STEM Instructor at the RChild with nearly three years of experience teaching hundreds of students, I've able to communicate complex concepts with ease. It is a skill that carries over into every project I undertake.</p>
           <p>My goal is to become a Software Engineer, continuously learning and building the things that will impact the world. I additionally aspire to be a Game Developer, as I'm passionate about using gaming as a means of expressing meaningful and engrossing stories.</p>
           <p>Creativity and the Art of it all is deeply important to me, illustrated from the design of my site to the Art portfolio included. I aim to bring the imagination and wonders of the arts with technology to create memorable and impactful experiences.</p>
         </div>
 
-        <a href="img/cv/Resume_SadmanMazumder.pdf" download class="gallery-btn">
-          Download Resume
+        <a href="img/cv/Resume_SadmanMazumder.pdf" target="_blank" rel="noopener" class="gallery-btn">
+          View Resume
         </a>
       </div>
 
@@ -513,8 +514,33 @@
 
   /* ---- Nav scroll class ---- */
   var nav = document.getElementById('gallery-nav');
+
+  /* ---- Lily flower scroll rotation ---- */
+  var petalEl   = document.querySelector('.hero-petal');
+  var petalAngle = 0;       // accumulated degrees
+  var lastScrollY = window.scrollY;
+  var rafPending  = false;
+
+  function applyPetalRotation() {
+    rafPending = false;
+    // translateY(-50%) keeps it vertically centred; rotate on top
+    petalEl.style.transform = 'translateY(-50%) rotate(' + petalAngle + 'deg)';
+  }
+
   window.addEventListener('scroll', function () {
-    if (window.scrollY > 10) {
+    var currentY = window.scrollY;
+    var delta    = currentY - lastScrollY;
+    lastScrollY  = currentY;
+
+    // ~0.06 deg per px scrolled — subtle but visible
+    petalAngle  += delta * 0.06;
+
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(applyPetalRotation);
+    }
+
+    if (currentY > 10) {
       nav.classList.add('scrolled');
     } else {
       nav.classList.remove('scrolled');

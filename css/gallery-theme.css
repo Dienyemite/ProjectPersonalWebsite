@@ -15,8 +15,8 @@
     --gallery-off-white: #f8f8f6;
     --gallery-light-gray: #f0efec;
     --gallery-mid-gray: #d8d6d0;
-    --gallery-dark-gray: #6b6b6b;
-    --gallery-charcoal: #2a2a2a;
+    --gallery-dark-gray: #1a1a1a;   /* was #6b6b6b — raised to near-black for full contrast */
+    --gallery-charcoal: #111111;    /* was #2a2a2a — unified with black */
     --gallery-black: #111111;
 
     --gallery-font-serif: 'Playfair Display', 'Georgia', serif;
@@ -355,7 +355,7 @@ img {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: 1;
+    /* no z-index — stays in paint step 6 so flower (z-index:1) renders above it */
     /* ── Pthalo green painted canvas stack (back → front) ───────────────────
        1. Base pthalo gradient   (#0C3D2C → #093325 → #061E17)
        2. Canvas warp threads    (vertical — tight repeating bands)
@@ -424,15 +424,18 @@ img {
     background-repeat: repeat;
 }
 
-/* Water lily flower — right side, zoomed so only left half is visible */
+/* Water lily flower — fixed overlay, persists across all sections, behind all content */
 .hero-petal {
-    position: absolute;
-    right: -50%;       /* push right half off-screen */
+    position: fixed;
+    right: -50%;       /* keep right half off-screen */
     top: 50%;
     transform: translateY(-50%);
-    width: 90%;        /* large so zoomed in */
+    width: 90%;
     height: auto;
-    z-index: 2;
+    z-index: 1;        /* above section backgrounds (step 6), below content wrappers (z-index:2) */
+    will-change: transform;
+    transform-origin: center center;
+    pointer-events: none; /* never intercept clicks meant for content */
 }
 
 .hero-petal img {
@@ -456,7 +459,7 @@ img {
     font-family: var(--gallery-font-serif) !important;
     font-size: clamp(32px, 4vw, 56px);
     font-weight: 400 !important;
-    color: var(--gallery-black) !important;
+    color: #ffffff !important;
     line-height: 1.1;
     letter-spacing: -0.01em;
 }
@@ -468,7 +471,7 @@ img {
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--gallery-dark-gray) !important;
+    color: rgba(255,255,255,0.75) !important;
 }
 
 /* Scroll cue at bottom center */
@@ -552,12 +555,16 @@ img {
 /* ============================================= */
 
 #gallery-about {
+    position: relative;
+    /* no z-index — does not form a stacking context, flower renders above bg */
     padding-top: 120px;
     padding-bottom: 120px;
     border-top: 1px solid var(--gallery-mid-gray);
 }
 
 .about-grid {
+    position: relative;
+    z-index: 2;        /* above flower */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
@@ -656,12 +663,16 @@ img {
 /* ============================================= */
 
 #gallery-projects {
+    position: relative;
+    /* no z-index — does not form a stacking context, flower renders above bg */
     padding: 100px 0;
     border-top: 1px solid var(--gallery-mid-gray);
     background: var(--gallery-off-white);
 }
 
 .projects-header {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -672,6 +683,8 @@ img {
 
 /* ── Experience summary ─────────────────────────────────── */
 .projects-summary {
+    position: relative;
+    z-index: 2;
     max-width: 1200px;
     margin: 0 auto 52px;
     padding: 0 48px;
@@ -714,6 +727,8 @@ img {
 }
 
 .projects-grid {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
@@ -724,6 +739,8 @@ img {
 
 /* ── GitHub Repos Carousel ─────────────────────────────────────────────── */
 .repos-carousel-wrap {
+    position: relative;
+    z-index: 2;
     max-width: 1200px;
     margin: 56px auto 0;
     padding: 0 48px 0;
@@ -897,12 +914,16 @@ img {
 /* ============================================= */
 
 #gallery-art-teaser {
+    position: relative;
+    /* no z-index — does not form a stacking context, flower renders above bg */
     padding: 100px 0;
     border-top: 1px solid var(--gallery-mid-gray);
     background: var(--gallery-white);
 }
 
 .art-teaser-inner {
+    position: relative;
+    z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 48px;
@@ -970,12 +991,16 @@ img {
 /* ============================================= */
 
 #gallery-contact {
+    position: relative;
+    /* no z-index — does not form a stacking context, flower renders above bg */
     padding: 100px 0;
     border-top: 1px solid var(--gallery-mid-gray);
     background: var(--gallery-off-white);
 }
 
 .contact-inner {
+    position: relative;
+    z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 48px;
@@ -1111,12 +1136,16 @@ img {
 /* ============================================= */
 
 #gallery-footer {
+    position: relative;
+    /* no z-index — does not form a stacking context, flower renders above bg */
     padding: 48px;
     border-top: 1px solid var(--gallery-mid-gray);
     background: var(--gallery-white);
 }
 
 .footer-inner {
+    position: relative;
+    z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
