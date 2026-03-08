@@ -159,14 +159,12 @@
   <!-- ========================================================== -->
   <section id="gallery-hero">
 
-    <!-- Lily pad — left background -->
-    <div class="hero-lilypad">
-      <img src="img/hero/lilypad.jpg" alt="Water lily pad" />
-    </div>
+    <!-- Lily pad — left background (CSS gradient, no img) -->
+    <div class="hero-lilypad"></div>
 
-    <!-- Water lily petal — right foreground -->
+    <!-- Water lily flower — right foreground -->
     <div class="hero-petal">
-      <img src="img/hero/lilypetal.png" alt="Water lily petal" />
+      <img src="img/hero/lilyflower.png" alt="Water lily flower" />
     </div>
 
     <!-- Name top-left -->
@@ -227,9 +225,24 @@
         <span class="section-label">Work</span>
         <h2 class="section-title" style="margin-bottom:0">Projects</h2>
       </div>
-      <a href="https://github.com/SadmanMazumder" target="_blank" rel="noopener" class="gallery-btn gallery-btn-ghost">
+      <a href="https://github.com/Dienyemite" target="_blank" rel="noopener" class="gallery-btn gallery-btn-ghost">
         View GitHub
       </a>
+    </div>
+
+    <!-- Experience summary -->
+    <div class="projects-summary">
+      <p class="projects-summary-bio">Full-stack developer well-versed in many fields of the tech sector. Experience as an IT & Software Engineering intern at Baldor Specialty Foods building an AI&nbsp;CRM platform with Python, AI/ML and Google APIs with Agile Development principles, allowing for multi-level analysis of customer portfolio. Comfortable across the full stack, ranging from SQL and containerised back-ends to React front-ends. Adept in computer graphics and physics engine programming, working on my own game engine made with C++, Vulkan, CMake with custom shader programming and physics integration. Altogether, I am capable of adapting to different tech stacks and toolsets as a result of varied experiences in multiple projects.</p>
+      <ul class="projects-summary-skills">
+        <li>Python &middot; Java &middot; JavaScript / TS &middot; C++ &middot; C#</li>
+        <li>React &middot; Node.js &middot; Django &middot; Next.js &middot; TensorFlow</li>
+        <li>Docker &middot; Kubernetes &middot; PostgreSQL &middot; MongoDB &middot; SQL&nbsp;Server</li>
+        <li>REST APIs &middot; CI/CD &middot; AI&nbsp;&amp;&nbsp;ML &middot; LLMs &middot; Agile Development/SDLC</li>
+        <li>Computer Graphics &middot; Physics Engine Programming &middot; Game Development &middot; Vulkan &middot; CMake</li>
+        <li>Git &middot; GitHub &middot; Jira &middot; Linux &middot; Cloud Platforms &middot; Data Structures &middot; Algorithms</li>
+        <li>Creative Design &middot; UI/UX &middot; Digital Art &middot; Adobe Photoshop &middot; Illustrator</li>
+
+      </ul>
     </div>
 
     <div class="projects-grid">
@@ -285,6 +298,20 @@
       </div>
 
     </div>
+
+    <!-- GitHub Repositories Carousel -->
+    <div class="repos-carousel-wrap">
+      <div class="repos-carousel-label">
+        <span class="section-label">GitHub</span>
+        <a href="https://github.com/Dienyemite?tab=repositories" target="_blank" rel="noopener" class="repos-all-link">View all &rarr;</a>
+      </div>
+      <div class="repos-track-outer">
+        <!-- Two identical strips for seamless infinite loop -->
+        <ul class="repos-track" id="repos-track-a" aria-hidden="false"></ul>
+        <ul class="repos-track" id="repos-track-b" aria-hidden="true"></ul>
+      </div>
+    </div>
+
   </section>
   <!-- /PROJECTS -->
 
@@ -379,9 +406,8 @@
       <span class="footer-name">Sadman Mazumder</span>
       <span class="footer-copy">&copy; 2026</span>
       <ul class="footer-socials">
-        <li><a href="https://github.com/SadmanMazumder" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://github.com/Dienyemite" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/sadman-mazumder-098356214/" target="_blank" rel="noopener">LinkedIn</a></li>
       </ul>
     </div>
   </footer>
@@ -396,6 +422,71 @@
 <script>
 (function () {
   'use strict';
+
+  /* ---- GitHub Repos Carousel ---- */
+  (function () {
+    var GITHUB_USER = 'Dienyemite';
+    var API_URL = 'https://api.github.com/users/' + GITHUB_USER + '/repos?sort=updated&per_page=100';
+    var GAP = 16; // must match CSS gap
+
+    function buildCard(repo) {
+      var li = document.createElement('li');
+      var a  = document.createElement('a');
+      a.className   = 'repo-card';
+      a.href        = repo.html_url;
+      a.target      = '_blank';
+      a.rel         = 'noopener';
+      a.setAttribute('aria-label', repo.name);
+
+      var name = document.createElement('span');
+      name.className   = 'repo-card-name';
+      name.textContent = repo.name.replace(/-/g, '\u2011'); // non-breaking hyphen
+
+      var lang = document.createElement('span');
+      lang.className   = 'repo-card-lang';
+      lang.textContent = repo.language || '';
+
+      a.appendChild(name);
+      if (repo.language) a.appendChild(lang);
+      li.appendChild(a);
+      return li;
+    }
+
+    function initCarousel(repos) {
+      var trackA = document.getElementById('repos-track-a');
+      var trackB = document.getElementById('repos-track-b');
+      if (!trackA || !trackB) return;
+
+      repos.forEach(function (r) { trackA.appendChild(buildCard(r)); });
+      repos.forEach(function (r) { trackB.appendChild(buildCard(r)); });
+
+      // Wait one frame so the browser has laid out the tracks
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          var totalW = trackA.scrollWidth;
+          var scrollDist = -(totalW + GAP);
+          var duration = Math.max(20, repos.length * 2.8); // ~2.8s per card, min 20s
+
+          [trackA, trackB].forEach(function (t) {
+            t.style.setProperty('--repos-scroll-dist', scrollDist + 'px');
+            t.style.animation = 'repos-scroll ' + duration + 's linear infinite';
+          });
+          // Stagger the duplicate by exactly half a cycle so they tile seamlessly
+          trackB.style.animationDelay = '-' + (duration / 2) + 's';
+        });
+      });
+    }
+
+    fetch(API_URL)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(initCarousel)
+      .catch(function (err) {
+        console.warn('GitHub API unavailable:', err);
+        // Hide the whole carousel wrapper gracefully
+        var wrap = document.querySelector('.repos-carousel-wrap');
+        if (wrap) wrap.style.display = 'none';
+      });
+  })();
 
   /* ---- Loading screen ---- */
   var loader   = document.getElementById('gallery-loader');

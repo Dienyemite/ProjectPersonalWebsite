@@ -347,43 +347,90 @@ img {
     background: var(--gallery-white);
 }
 
-/* Lily pad — fills left side, behind petal */
+/* Lily pad — fills left side, behind petal — pure CSS gradient, no image */
 .hero-lilypad {
     position: absolute;
     top: 0;
     left: 0;
-    width: 65%;
+    width: 100%;
     height: 100%;
     overflow: hidden;
     z-index: 1;
+    /* ── Pthalo green painted canvas stack (back → front) ───────────────────
+       1. Base pthalo gradient   (#0C3D2C → #093325 → #061E17)
+       2. Canvas warp threads    (vertical — tight repeating bands)
+       3. Canvas weft threads    (horizontal — tight repeating bands)
+       4. Directional light      (top-left glaze, bottom-right shadow)
+       5. Edge vignette          (all sides darken inward)
+    ─────────────────────────────────────────────────────────────────────── */
+    background:
+        /* 5. All-edge vignette */
+        radial-gradient(ellipse at center, transparent 30%, rgba(3, 12, 8, 0.72) 100%),
+        /* 4. Directional glaze — top-left warm highlight, bottom-right cold shadow */
+        linear-gradient(140deg, rgba(30,110,70,0.13) 0%, transparent 40%, rgba(0,0,0,0.18) 100%),
+        /* 3. Weft threads — horizontal canvas weave */
+        repeating-linear-gradient(
+            0deg,
+            transparent               0px,
+            transparent               5px,
+            rgba(255,255,255,0.028)   5px,
+            rgba(255,255,255,0.028)   6px,
+            transparent               6px,
+            transparent               11px,
+            rgba(0,0,0,0.04)          11px,
+            rgba(0,0,0,0.04)          12px
+        ),
+        /* 2. Warp threads — vertical canvas weave (slightly narrower pitch) */
+        repeating-linear-gradient(
+            90deg,
+            transparent               0px,
+            transparent               4px,
+            rgba(255,255,255,0.022)   4px,
+            rgba(255,255,255,0.022)   5px,
+            transparent               5px,
+            transparent               9px,
+            rgba(0,0,0,0.035)         9px,
+            rgba(0,0,0,0.035)         10px
+        ),
+        /* 1. Base pthalo green gradient */
+        linear-gradient(158deg, #0E4535 0%, #0C3D2C 35%, #093325 65%, #061E17 100%);
 }
 
-.hero-lilypad img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
+/* Layer A — fractalNoise grain (coarser, canvas-like) */
+.hero-lilypad::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.11;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.42' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 300px 300px;
+    background-repeat: repeat;
 }
 
-/* White overlay fade so pad blends into white right side */
+/* Layer B — coarser turbulence simulating bristle strokes, multiply blended */
 .hero-lilypad::after {
     content: '';
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(to right, transparent, var(--gallery-white));
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.09;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.18 0.06' numOctaves='3' seed='8' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23b)'/%3E%3C/svg%3E");
+    background-size: 512px 512px;
+    background-repeat: repeat;
 }
 
-/* Water lily petal — right side, diagonal */
+/* Water lily flower — right side, zoomed so only left half is visible */
 .hero-petal {
     position: absolute;
-    right: -5%;
+    right: -50%;       /* push right half off-screen */
     top: 50%;
-    transform: translateY(-50%) rotate(-15deg);
-    width: 58%;
+    transform: translateY(-50%);
+    width: 90%;        /* large so zoomed in */
     height: auto;
     z-index: 2;
 }
@@ -392,13 +439,16 @@ img {
     width: 100%;
     height: auto;
     object-fit: contain;
+    filter: drop-shadow(0 8px 40px rgba(0,0,0,0.32));
 }
 
-/* Top-left name overlay */
+/* Name — top-left */
 .hero-text {
     position: absolute;
     top: 96px;
     left: 48px;
+    right: auto;
+    text-align: left;
     z-index: 3;
 }
 
@@ -620,6 +670,49 @@ img {
     margin: 0 auto;
 }
 
+/* ── Experience summary ─────────────────────────────────── */
+.projects-summary {
+    max-width: 1200px;
+    margin: 0 auto 52px;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px 64px;
+    align-items: stretch;   /* both cells grow to the same height */
+    border-top: 1px solid var(--gallery-mid-gray, #d8d8d8);
+    padding-top: 40px;
+}
+
+.projects-summary-bio {
+    font-family: var(--gallery-font-sans);
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--gallery-dark-gray);
+    margin: 0;
+    max-width: 620px;
+}
+
+.projects-summary-skills {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;  /* rows pin to top & bottom, spread evenly */
+    height: 100%;                    /* fill the stretched grid cell */
+    white-space: nowrap;
+}
+
+.projects-summary-skills li {
+    font-family: var(--gallery-font-sans);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gallery-dark-gray);
+    border-left: 2px solid var(--gallery-black);
+    padding-left: 12px;
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -628,6 +721,105 @@ img {
     margin: 0 auto;
     padding: 0 48px;
 }
+
+/* ── GitHub Repos Carousel ─────────────────────────────────────────────── */
+.repos-carousel-wrap {
+    max-width: 1200px;
+    margin: 56px auto 0;
+    padding: 0 48px 0;
+    overflow: hidden;
+}
+
+.repos-carousel-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.repos-all-link {
+    font-family: var(--gallery-font-sans);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gallery-dark-gray);
+    text-decoration: none;
+    transition: color var(--gallery-transition);
+}
+.repos-all-link:hover { color: var(--gallery-black); }
+
+/* Outer clip + fade edges */
+.repos-track-outer {
+    display: flex;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    /* pause on hover */
+    cursor: default;
+}
+.repos-track-outer:hover .repos-track {
+    animation-play-state: paused;
+}
+
+/* Each strip */
+.repos-track {
+    display: flex;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0 12px;
+    /* width set by JS; animation added by JS once width is known */
+    will-change: transform;
+    flex-shrink: 0;
+}
+
+/* Individual repo box */
+.repo-card {
+    flex-shrink: 0;
+    width: 168px;
+    height: 168px;
+    border: 1px solid var(--gallery-mid-gray, #d8d8d8);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+    gap: 6px;
+    text-decoration: none;
+    background: var(--gallery-white);
+    transition: border-color var(--gallery-transition), box-shadow var(--gallery-transition);
+    box-sizing: border-box;
+}
+.repo-card:hover {
+    border-color: var(--gallery-black);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.repo-card-name {
+    font-family: var(--gallery-font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gallery-black);
+    line-height: 1.35;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.repo-card-lang {
+    font-family: var(--gallery-font-sans);
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--gallery-dark-gray);
+}
+
+@keyframes repos-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(var(--repos-scroll-dist)); }
+}
+
 
 .project-card {
     position: relative;
@@ -982,14 +1174,17 @@ img {
 
     .nav-mobile-drawer { padding: 24px 24px 32px; }
 
-    .hero-text { left: 24px; }
-    .hero-lilypad { width: 80%; }
-    .hero-petal { width: 70%; right: -10%; }
+    .hero-text { left: 24px; right: auto; }
+    .hero-lilypad { width: 100%; }
+    .hero-petal { width: 110%; right: -55%; }
 
     .about-grid { grid-template-columns: 1fr; gap: 48px; padding: 0 24px; }
     .about-image-wrap img { height: 380px; object-position: center; }
 
     .projects-header { padding: 0 24px 36px; flex-direction: column; align-items: flex-start; gap: 20px; }
+    .projects-summary { grid-template-columns: 1fr; padding: 32px 24px 0; margin-bottom: 40px; }
+    .projects-summary-skills { white-space: normal; }
+    .repos-carousel-wrap { padding: 0 24px; margin-top: 40px; }
     .projects-grid { grid-template-columns: 1fr 1fr; padding: 0 24px; }
 
     .art-teaser-inner { grid-template-columns: 1fr; gap: 48px; padding: 0 24px; }
@@ -1005,5 +1200,5 @@ img {
     .projects-grid { grid-template-columns: 1fr; }
     .art-teaser-visual { grid-template-columns: 1fr 1fr; }
     .hero-name { font-size: 28px; }
-    .hero-petal { width: 90%; right: -15%; }
+    .hero-petal { width: 130%; right: -65%; }
 }
