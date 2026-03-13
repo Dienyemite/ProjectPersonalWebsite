@@ -60,99 +60,67 @@
   }
 
   .art-grid {
+    column-gap: 24px;
+  }
+
+  .art-grid--featured {
+    columns: 2;
+    column-gap: 32px;
+  }
+
+  .art-grid--standard {
     columns: 3;
-    column-gap: 16px;
+    column-gap: 20px;
+  }
+
+  .art-category-header {
+    padding: 56px 0 24px;
+    border-bottom: 1px solid var(--gallery-mid-gray);
+    margin-bottom: 40px;
+  }
+
+  .art-cat-title {
+    font-family: var(--gallery-font-serif) !important;
+    font-size: clamp(18px, 2.2vw, 28px);
+    font-weight: 400 !important;
+    color: var(--gallery-black) !important;
+    margin: 0;
   }
 
   .art-item {
     break-inside: avoid;
-    margin-bottom: 16px;
-    position: relative;
-    overflow: hidden;
+    margin-bottom: 40px;
     cursor: zoom-in;
+  }
+
+  .art-item-img-wrap {
+    overflow: hidden;
     background: var(--gallery-light-gray);
   }
 
-  .art-item img {
+  .art-item-img-wrap img {
     width: 100%;
     height: auto;
     display: block;
-    transition: transform 0.5s ease, filter 0.5s ease;
-    filter: grayscale(10%);
+    transition: transform 0.6s ease;
   }
 
-  .art-item:hover img {
+  .art-item:hover .art-item-img-wrap img {
     transform: scale(1.03);
-    filter: grayscale(0%);
   }
 
   .art-item-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px;
-    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .art-item:hover .art-item-caption {
-    opacity: 1;
+    padding: 10px 0 0;
   }
 
   .art-item-caption h3 {
     font-family: var(--gallery-font-serif) !important;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 400 !important;
-    color: #fff !important;
-    margin: 0 0 4px;
-  }
-
-  .art-item-caption span {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-    font-family: var(--gallery-font-sans) !important;
-  }
-
-  /* Placeholder tile */
-  .art-item-placeholder {
-    break-inside: avoid;
-    margin-bottom: 16px;
-    background: var(--gallery-light-gray);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 24px;
-    gap: 12px;
-  }
-
-  .art-item-placeholder .placeholder-icon {
-    width: 32px;
-    height: 32px;
-    border: 1px solid var(--gallery-mid-gray);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .art-item-placeholder .placeholder-icon::after {
-    content: '+';
-    font-size: 18px;
-    color: var(--gallery-mid-gray);
-    line-height: 1;
-  }
-
-  .art-item-placeholder span {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gallery-mid-gray) !important;
-    font-family: var(--gallery-font-sans) !important;
+    font-style: italic;
+    color: var(--gallery-black) !important;
+    margin: 0;
+    line-height: 1.4;
   }
 
   /* Lightbox */
@@ -203,11 +171,13 @@
   @media (max-width: 900px) {
     #art-hero { padding: 120px 24px 48px; }
     #art-grid-section { padding: 48px 24px 80px; }
-    .art-grid { columns: 2; }
+    .art-grid--featured { columns: 2; column-gap: 20px; }
+    .art-grid--standard { columns: 2; column-gap: 16px; }
   }
 
   @media (max-width: 560px) {
-    .art-grid { columns: 1; }
+    .art-grid--featured { columns: 1; }
+    .art-grid--standard { columns: 1; }
   }
 </style>
 </head>
@@ -248,53 +218,191 @@
 
 <!-- GALLERY GRID -->
 <div id="art-grid-section">
-  <div class="art-grid" id="art-grid">
 
-    <!--
-      TO ADD ARTWORK:
-      Replace the placeholder tiles below with real entries following this pattern:
+  <!-- ── Digital & Colored ──────────────────────────────────────────── -->
+  <div class="art-category-header">
+    <h2 class="art-cat-title">Digital &amp; Colored</h2>
+  </div>
+  <div class="art-grid art-grid--featured" id="art-grid">
 
-      <div class="art-item" onclick="openLightbox('img/art/your-image.jpg')">
-        <img src="img/art/your-image.jpg" alt="Artwork title" loading="lazy" />
-        <div class="art-item-caption">
-          <h3>Title</h3>
-          <span>Medium, Year</span>
-        </div>
-      </div>
-    -->
-
-    <!-- Placeholders — remove and replace with artwork as you add pieces -->
-    <div class="art-item-placeholder" style="min-height:320px">
-      <div class="placeholder-icon"></div>
-      <span>Artwork Coming Soon</span>
+    <div class="art-item" onclick="openLightbox('img/art/A2.png')">
+      <div class="art-item-img-wrap"><img src="img/art/A2.png" alt="A2" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>A2</h3></div>
     </div>
 
-    <div class="art-item-placeholder" style="min-height:240px">
-      <div class="placeholder-icon"></div>
-      <span>Coming Soon</span>
+    <div class="art-item" onclick="openLightbox('img/art/Batara Fanart Moriyan.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Batara Fanart Moriyan.png" alt="Batara Fanart Moriyan" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Batara Fanart Moriyan</h3></div>
     </div>
 
-    <div class="art-item-placeholder" style="min-height:400px">
-      <div class="placeholder-icon"></div>
-      <span>Coming Soon</span>
+    <div class="art-item" onclick="openLightbox('img/art/Breeze.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Breeze.png" alt="Breeze" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Breeze</h3></div>
     </div>
 
-    <div class="art-item-placeholder" style="min-height:280px">
-      <div class="placeholder-icon"></div>
-      <span>Coming Soon</span>
+    <div class="art-item" onclick="openLightbox('img/art/Butterfly.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Butterfly.png" alt="Butterfly" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Butterfly</h3></div>
     </div>
 
-    <div class="art-item-placeholder" style="min-height:360px">
-      <div class="placeholder-icon"></div>
-      <span>Coming Soon</span>
+    <div class="art-item" onclick="openLightbox('img/art/CharConcept.png')">
+      <div class="art-item-img-wrap"><img src="img/art/CharConcept.png" alt="CharConcept" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>CharConcept</h3></div>
     </div>
 
-    <div class="art-item-placeholder" style="min-height:220px">
-      <div class="placeholder-icon"></div>
-      <span>Coming Soon</span>
+    <div class="art-item" onclick="openLightbox('img/art/Charge.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Charge.png" alt="Charge" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Charge</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Concept Overworld.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Concept Overworld.png" alt="Concept Overworld" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Concept Overworld</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Daydream.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Daydream.png" alt="Daydream" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Daydream</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Embrace.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Embrace.png" alt="Embrace" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Embrace</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Everdark Balancer.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Everdark Balancer.png" alt="Everdark Balancer" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Everdark Balancer</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Gaze.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Gaze.png" alt="Gaze" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Gaze</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Guard.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Guard.png" alt="Guard" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Guard</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/InnaCloseup.png')">
+      <div class="art-item-img-wrap"><img src="img/art/InnaCloseup.png" alt="InnaCloseup" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>InnaCloseup</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/InnaFullBody.png')">
+      <div class="art-item-img-wrap"><img src="img/art/InnaFullBody.png" alt="InnaFullBody" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>InnaFullBody</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Knight.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Knight.png" alt="Knight" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Knight</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Melancholy.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Melancholy.png" alt="Melancholy" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Melancholy</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Scenary.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Scenary.png" alt="Scenary" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Scenary</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Stare.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Stare.png" alt="Stare" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Stare</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Undertaker.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Undertaker.png" alt="Undertaker" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Undertaker</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/WarriorConcept.png')">
+      <div class="art-item-img-wrap"><img src="img/art/WarriorConcept.png" alt="WarriorConcept" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>WarriorConcept</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Yotsugi.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Yotsugi.png" alt="Yotsugi" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Yotsugi</h3></div>
     </div>
 
   </div>
+
+  <!-- ── Pixel Art ───────────────────────────────────────────────────── -->
+  <div class="art-category-header">
+    <h2 class="art-cat-title">Pixel Art</h2>
+  </div>
+  <div class="art-grid art-grid--standard">
+
+    <div class="art-item" onclick="openLightbox('img/art/Klin of the First Flame.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Klin of the First Flame.png" alt="Klin of the First Flame" loading="lazy" style="image-rendering:pixelated;" /></div>
+      <div class="art-item-caption"><h3>Klin of the First Flame</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Lighthouse.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Lighthouse.png" alt="Lighthouse" loading="lazy" style="image-rendering:pixelated;" /></div>
+      <div class="art-item-caption"><h3>Lighthouse</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/True King Allant.png')">
+      <div class="art-item-img-wrap"><img src="img/art/True King Allant.png" alt="True King Allant" loading="lazy" style="image-rendering:pixelated;" /></div>
+      <div class="art-item-caption"><h3>True King Allant</h3></div>
+    </div>
+
+  </div>
+
+  <!-- ── Traditional ─────────────────────────────────────────────────── -->
+  <div class="art-category-header">
+    <h2 class="art-cat-title">Traditional</h2>
+  </div>
+  <div class="art-grid art-grid--standard">
+
+    <div class="art-item" onclick="openLightbox('img/art/Cyberpunk.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Cyberpunk.png" alt="Cyberpunk" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Cyberpunk</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/DragonPanel.png')">
+      <div class="art-item-img-wrap"><img src="img/art/DragonPanel.png" alt="DragonPanel" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>DragonPanel</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Firekeeper.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Firekeeper.png" alt="Firekeeper" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Firekeeper</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/John Wick.png')">
+      <div class="art-item-img-wrap"><img src="img/art/John Wick.png" alt="John Wick" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>John Wick</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Sailor Moon.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Sailor Moon.png" alt="Sailor Moon" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Sailor Moon</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Seek.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Seek.png" alt="Seek" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Seek</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Tears of the Kingdom.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Tears of the Kingdom.png" alt="Tears of the Kingdom" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Tears of the Kingdom</h3></div>
+    </div>
+
+    <div class="art-item" onclick="openLightbox('img/art/Violet.png')">
+      <div class="art-item-img-wrap"><img src="img/art/Violet.png" alt="Violet" loading="lazy" /></div>
+      <div class="art-item-caption"><h3>Violet</h3></div>
+    </div>
+
+  </div>
+
 </div>
 
 
